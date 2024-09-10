@@ -1,0 +1,184 @@
+/* Starry Background */
+.stars,
+.twinkling {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+.stars {
+  background: url("https://www.script-tutorials.com/demos/360/images/stars.png")
+    repeat top center;
+  animation: move-stars 100s linear infinite;
+}
+
+.twinkling {
+  background: url("https://www.script-tutorials.com/demos/360/images/twinkling.png")
+    repeat top center;
+  animation: move-twinkling 200s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes move-stars {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -10000px 5000px;
+  }
+}
+
+@keyframes move-twinkling {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 10000px 10000px;
+  }
+}
+
+/* 3D card styles */
+.card-3d {
+  background: linear-gradient(145deg, #f0f0f3, #cfcfcf);
+  box-shadow: 12px 12px 16px #a3a3a3, -12px -12px 16px #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  perspective: 1000px;
+  border-radius: 12px;
+  transform-style: preserve-3d;
+}
+
+.card-3d:hover {
+  box-shadow: 18px 18px 24px #a3a3a3, -18px -18px 24px #ffffff;
+}
+
+/* More prominent shadow on hover */
+.card-3d:hover {
+  transform: rotateY(10deg) rotateX(10deg);
+}
+/* ========================================================================================= */
+/* Background with rotating planets */
+.planet-background {
+  position: absolute;
+  inset: 0;
+  background: url("/path-to-your-solar-system-background.jpg") no-repeat center
+    center/cover;
+
+  z-index: -1;
+}
+
+@keyframes rotate-background {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Example of an individual planet */
+.planet {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, #f00, #600);
+  border-radius: 50%;
+  z-index: -1;
+  /* Adjust the `top` and `left` properties to position your planet */
+  /* Add animation for orbit if needed */
+}
+
+.planet-one {
+  top: 20%;
+  left: 30%;
+  animation: orbit-one 20s infinite linear;
+}
+
+@keyframes orbit-one {
+  from {
+    transform: rotate(0deg) translateX(150px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(150px) rotate(-360deg);
+  }
+}
+
+/* src/styles/spaceBackground.css */
+/* src/styles/spaceBackground.css */
+.planet-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+.planet-background .ball {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: move 20s infinite linear;
+}
+
+.planet-background .ball:nth-child(1) {
+  background: rgba(255, 100, 100, 0.7);
+  width: 20px;
+  height: 20px;
+  top: 20%;
+  left: 10%;
+  animation-duration: 15s;
+}
+
+.planet-background .ball:nth-child(2) {
+  background: rgba(100, 255, 100, 0.7);
+  width: 30px;
+  height: 30px;
+  top: 60%;
+  left: 70%;
+  animation-duration: 25s;
+}
+
+.planet-background .ball:nth-child(3) {
+  background: rgba(100, 100, 255, 0.7);
+  width: 40px;
+  height: 40px;
+  top: 40%;
+  left: 80%;
+  animation-duration: 20s;
+}
+
+.planet-background .ball:nth-child(4) {
+  background: rgba(255, 255, 100, 0.7);
+  width: 25px;
+  height: 25px;
+  top: 70%;
+  left: 30%;
+  animation-duration: 30s;
+}
+
+.planet-background .ball:nth-child(5) {
+  background: rgba(255, 165, 0, 0.7);
+  width: 35px;
+  height: 35px;
+  top: 10%;
+  left: 50%;
+  animation-duration: 18s;
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    transform: translateX(100vw) translateY(100vh);
+  }
+}
