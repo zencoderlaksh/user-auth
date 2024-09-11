@@ -1,11 +1,11 @@
-// src/components/Login.jsx
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginUser } from "../api";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -14,6 +14,7 @@ const loginSchema = z.object({
 
 const Login = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
   const {
     register,
     handleSubmit,
@@ -43,7 +44,6 @@ const Login = () => {
     <div className="relative h-screen overflow-hidden">
       {/* Background with colorful moving balls */}
       <div className="planet-background">
-        {/* Add more balls if desired */}
         <div className="ball"></div>
         <div className="ball"></div>
         <div className="ball"></div>
@@ -70,26 +70,37 @@ const Login = () => {
               <input
                 type="email"
                 {...register("email")}
-                className="form-control rounded-lg w-full px-4 py-2 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="form-control rounded-lg w-full px-4 py-2 bg-gray-800 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your email"
               />
               {errors.email && (
                 <p className="text-red-500">{errors.email.message}</p>
               )}
             </div>
+
             {/* Password */}
             <div>
               <label className="block text-white">Password</label>
-              <input
-                type="password"
-                {...register("password")}
-                className="form-control rounded-lg w-full px-4 py-2 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your password"
-              />
-              {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
-              )}
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"} // Toggle between text and password type
+                  {...register("password")}
+                  className="form-control rounded-lg w-full px-4 py-2 bg-gray-800 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter your password"
+                />
+                <span
+                  className="absolute right-3 top-3 cursor-pointer text-black"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}{" "}
+                  {/* Icon toggle */}
+                </span>
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
+              </div>
             </div>
+
             {/* Submit Button */}
             <button
               type="submit"

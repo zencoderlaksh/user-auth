@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react"; // <-- Added useState import
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerUser } from "../api"; // Make sure this path is correct
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"; // For card animations
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Icons for password visibility toggle
 
 const registrationSchema = z
   .object({
@@ -24,6 +25,8 @@ const registrationSchema = z
 
 const Registration = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false); // For password toggle
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // For confirm password toggle
   const {
     register,
     handleSubmit,
@@ -46,7 +49,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="relative h-screen bg-black ">
+    <div className="relative h-screen bg-black">
       {/* Starry background */}
       <div className="absolute inset-0 z-0">
         <div className="space-background"></div>
@@ -72,7 +75,7 @@ const Registration = () => {
                   <label className="block text-white">Name</label>
                   <input
                     {...register("name")}
-                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-white focus:outline-none"
+                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-black focus:outline-none"
                   />
                   {errors.name && (
                     <p className="text-red-500">{errors.name.message}</p>
@@ -84,7 +87,7 @@ const Registration = () => {
                   <label className="block text-white">Email</label>
                   <input
                     {...register("email")}
-                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-white focus:outline-none"
+                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-black focus:outline-none"
                   />
                   {errors.email && (
                     <p className="text-red-500">{errors.email.message}</p>
@@ -94,16 +97,26 @@ const Registration = () => {
               <div className="col-xxl-6 col-xl-6 col-lg-6 col-sm-12">
                 <div>
                   <label className="block text-white">Confirm Password</label>
-                  <input
-                    type="password"
-                    {...register("confirmPassword")}
-                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-white focus:outline-none"
-                  />
-                  {errors.confirmPassword && (
-                    <p className="text-red-500">
-                      {errors.confirmPassword.message}
-                    </p>
-                  )}
+                  <div className="relative">
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      {...register("confirmPassword")}
+                      className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-black focus:outline-none"
+                    />
+                    <span
+                      className="absolute right-3 top-3 cursor-pointer text-black"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                    >
+                      {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
+                    {errors.confirmPassword && (
+                      <p className="text-red-500">
+                        {errors.confirmPassword.message}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-xxl-6 col-xl-6 col-lg-6 col-sm-12">
@@ -111,7 +124,7 @@ const Registration = () => {
                   <label className="block text-white">Address</label>
                   <input
                     {...register("address")}
-                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-white focus:outline-none"
+                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-black focus:outline-none"
                   />
                   {errors.address && (
                     <p className="text-red-500">{errors.address.message}</p>
@@ -121,14 +134,22 @@ const Registration = () => {
               <div className="col-xxl-6 col-xl-6 col-lg-6 col-sm-12">
                 <div>
                   <label className="block text-white">Password</label>
-                  <input
-                    type="password"
-                    {...register("password")}
-                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-white focus:outline-none"
-                  />
-                  {errors.password && (
-                    <p className="text-red-500">{errors.password.message}</p>
-                  )}
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      {...register("password")}
+                      className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-black focus:outline-none"
+                    />
+                    <span
+                      className="absolute right-3 top-3 cursor-pointer text-black"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
+                    {errors.password && (
+                      <p className="text-red-500">{errors.password.message}</p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="col-xxl-6 col-xl-6 col-lg-6 col-sm-12">
@@ -136,7 +157,7 @@ const Registration = () => {
                   <label className="block text-white">Phone Number</label>
                   <input
                     {...register("phoneNumber")}
-                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-white focus:outline-none"
+                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-black focus:outline-none"
                   />
                   {errors.phoneNumber && (
                     <p className="text-red-500">{errors.phoneNumber.message}</p>
@@ -148,7 +169,7 @@ const Registration = () => {
                   <label className="block text-white">City</label>
                   <input
                     {...register("city")}
-                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-white focus:outline-none"
+                    className="form-control rounded-lg px-3 py-2 w-full bg-gray-800 text-black focus:outline-none"
                   />
                   {errors.city && (
                     <p className="text-red-500">{errors.city.message}</p>
